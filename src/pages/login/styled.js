@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { theme } from "../../styles";
 
 export const LoginContainerStyled = styled.div`
     height: 88vh;
@@ -11,7 +10,8 @@ export const LoginContainerStyled = styled.div`
 `
 
 export const FormContainerStyled = styled.form`
-    width: 40vw;
+    min-width: 40vw;
+    max-width: 95vw;
     display: flex;
     flex-direction: column;
     align-items: center;

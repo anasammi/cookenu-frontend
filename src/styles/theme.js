@@ -7,10 +7,27 @@ export const theme = extendTheme({
         header: {
           bg: "laranja.400",
         },
-        form: {
+        formMain: {
           width: "100%",
           bg: "laranja.400",
+          color: "white",
+          _hover: {
+            bg: "white",
+            color: "laranja.400",
+            border: "3px solid #FE7E02"
+          }
         },
+        formSecondary : {
+          width: "100%",
+          bg: "white",
+          color: "laranja.400",
+          _hover: {
+            fontWeight: "normal",
+            color: "black",
+            textDecoration: "underline",
+            // border: "1px solid grey"
+          }
+        }
       },
     },
   },

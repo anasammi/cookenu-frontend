@@ -4,15 +4,16 @@ import {
   FormControl,
   FormErrorMessage,
   FormLabel,
-  Image,
   Input,
   InputGroup,
   InputRightElement,
 } from "@chakra-ui/react";
 import { FormContainerStyled, LoginContainerStyled } from "./styled";
 import { useState } from "react";
-import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import logo from "../../assets/logo.png"
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import logo from "../../assets/logo.png";
+import { useNavigate } from "react-router";
+import { goToSignUp } from "../../routes/coordinator";
 
 export const LoginPage = () => {
   const { form, onChangeInputs } = useForm({
@@ -22,6 +23,7 @@ export const LoginPage = () => {
   const [isEmailValid, setIsEmailValid] = useState(true);
   const [isPasswordValid, setIsPasswordValid] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
   const submitLogin = (e) => {
     e.preventDefault();
@@ -36,7 +38,7 @@ export const LoginPage = () => {
 
   return (
     <LoginContainerStyled>
-        <Image src={logo}/>
+      <img src={logo} alt="logo do cookenu"/>
       <FormContainerStyled onSubmit={submitLogin}>
         <FormControl isInvalid={!isEmailValid}>
           <FormLabel>E-mail</FormLabel>
@@ -56,7 +58,7 @@ export const LoginPage = () => {
             />
             <InputRightElement width="4.5rem">
               <Button h="1.75rem" size="sm" onClick={onClickShowPassword}>
-                {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
               </Button>
             </InputRightElement>
             {!isPasswordValid ? (
@@ -64,10 +66,12 @@ export const LoginPage = () => {
             ) : undefined}
           </InputGroup>
         </FormControl>
-        <Button type="submit" variant="form">
-          Login
+        <Button type="submit" variant="formMain">
+          Entrar
         </Button>
-        <button>Ainda não tenho cadastro</button>
+        <Button variant="formSecondary" onClick={() => goToSignUp(navigate)}>
+          Ainda não tenho cadastro
+        </Button>
       </FormContainerStyled>
     </LoginContainerStyled>
   );
