@@ -1,11 +1,11 @@
-import { HeaderStyled } from "./styled"
-import { Button} from '@chakra-ui/react'
+import { HeaderStyled } from "./styled";
+import { Button } from "@chakra-ui/react";
 
 export const Header = () => {
-    return (
-        <HeaderStyled>
-            <Button variant="ghost" colorScheme="gray">Cookenu</Button>
-            <Button variant='outline'>Login</Button>
-        </HeaderStyled>
-    )
-}
+  return (
+    <HeaderStyled>
+      <Button variant="header">Cookenu</Button>
+      <Button variant="header">Login</Button>
+    </HeaderStyled>
+  );
+};
