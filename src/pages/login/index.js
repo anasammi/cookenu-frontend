@@ -1,19 +1,19 @@
 import { useForm } from "../../hooks";
 import {
-  Button,
-  FormControl,
-  FormErrorMessage,
-  FormLabel,
-  Input,
-  InputGroup,
-  InputRightElement,
+  Button
 } from "@chakra-ui/react";
-import { FormContainerStyled, LoginContainerStyled } from "./styled";
+import {
+  FormContainerStyled,
+  PageContainerStyled as LoginContainerStyled,
+} from "../../components/styled-containers";
 import { useState } from "react";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
+
 import logo from "../../assets/logo.png";
 import { useNavigate } from "react-router";
 import { goToSignUp } from "../../routes/coordinator";
+import { EmailInput } from "../../components";
+import { PasswordInput } from "../../components/inputs/password";
+import { validateEmail, validatePassword } from "../../constants";
 
 export const LoginPage = () => {
   const { form, onChangeInputs } = useForm({
@@ -22,50 +22,30 @@ export const LoginPage = () => {
   });
   const [isEmailValid, setIsEmailValid] = useState(true);
   const [isPasswordValid, setIsPasswordValid] = useState(true);
-  const [showPassword, setShowPassword] = useState(false);
+
   const navigate = useNavigate();
 
   const submitLogin = (e) => {
     e.preventDefault();
-    setIsEmailValid(/[a-zA-Z0-9]+@[a-zA-Z0-9][.a-zA-Z]?/.test(form.email));
-    setIsPasswordValid(/^.{6,}$/.test(form.password));
+    setIsEmailValid(validateEmail(form.email));
+    setIsPasswordValid(validatePassword(form.password));
     console.log(form);
-  };
-
-  const onClickShowPassword = () => {
-    setShowPassword(!showPassword);
   };
 
   return (
     <LoginContainerStyled>
-      <img src={logo} alt="logo do cookenu"/>
+      <img src={logo} alt="logo do cookenu" />
       <FormContainerStyled onSubmit={submitLogin}>
-        <FormControl isInvalid={!isEmailValid}>
-          <FormLabel>E-mail</FormLabel>
-          <Input value={form.email} name="email" onChange={onChangeInputs} />
-          {!isEmailValid ? (
-            <FormErrorMessage>E-mail inválido.</FormErrorMessage>
-          ) : undefined}
-        </FormControl>
-        <FormControl>
-          <FormLabel>Senha</FormLabel>
-          <InputGroup size="md">
-            <Input
-              value={form.password}
-              name="password"
-              onChange={onChangeInputs}
-              type={showPassword ? "text" : "password"}
-            />
-            <InputRightElement width="4.5rem">
-              <Button h="1.75rem" size="sm" onClick={onClickShowPassword}>
-                {showPassword ? <FaEyeSlash /> : <FaEye />}
-              </Button>
-            </InputRightElement>
-            {!isPasswordValid ? (
-              <FormErrorMessage>Senha inválida.</FormErrorMessage>
-            ) : undefined}
-          </InputGroup>
-        </FormControl>
+        <EmailInput
+          value={form.email}
+          onChange={onChangeInputs}
+          isValid={isEmailValid}
+        />
+        <PasswordInput
+            value={form.password}
+            onChange={onChangeInputs}
+            isValid={isPasswordValid}
+        />
         <Button type="submit" variant="formMain">
           Entrar
         </Button>
